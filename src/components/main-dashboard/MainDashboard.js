@@ -1,10 +1,9 @@
 import React, {
     Component
 } from 'react';
-// import './App.css';
-import axios from 'axios';
-import metadataService from '../../metadataService';
 import LeftHand from '../left-hand/LeftHand';
+import Board from '../board/Board'
+import boardsService from '../../services/boardsService'
 
 class MainDashboard extends Component {
     constructor(props) {
@@ -12,28 +11,31 @@ class MainDashboard extends Component {
         this.state = {boards: [], boardSelected: {}};
         this.showBoard = this.showBoard.bind(this);
     }
-    componentDidMount() {
-        debugger;
-        let metadata = metadataService();
+    componentDidMount() {       
         let that = this;
-        axios.get(`https://api.trello.com/1/members/roqueperalta2/boards?key=${metadata.key}&token=${metadata.token}`)
-        .then((response) => {
+        boardsService.getBoards().then((response) => {
             that.setState({boards: response.data});
-        })
+            if(response.data.length) {
+                this.setState({boardSelected: response.data[0]});
+            }
+        });
     }
     render() {
-        return(
-            <div className="container">
-            <div className="row">
-                <LeftHand className="col-sm left-hand" handleChangeBoard={this.showBoard} boards= {this.state.boards}/>
-                <div className="col-sm-9 lists-panel" board= {this.state.boardSelected}></div>
-            </div>
-          </div>
-        )
+        if(this.state.boards.length && this.state.boardSelected.id) {
+            return(            
+                <div className="container h-100">
+                    <div className="row h-100">
+                        <LeftHand handleChangeBoard={this.showBoard} boardSelected={this.state.boardSelected} boards= {this.state.boards}/>
+                        <Board board= {this.state.boardSelected}/>
+                    </div>
+                </div>
+            )
+        }
+        return (<div>Loading</div>)
     }
 
     showBoard(board) {
-        this.setState({boardSelected: board});
+        this.setState({boardSelected: board});        
     }
 }
 

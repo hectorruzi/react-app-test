@@ -1,26 +1,37 @@
 import React, {
     Component
 } from 'react';
-// import './App.css';
+
+import './left-hand.css';
 import axios from 'axios';
 
 class LeftHand extends Component {
+    constructor(props) {
+        super(props);        
+    }
     componentDidMount() {
     
     }    
 
     render() {
         const boards = this.props.boards.map(board => {
-            return <li className="nav-item"><span onClick={this.props.handleChangeBoard(board)}>{board.name}</span></li>
+            return <li key={board.id} className={"nav-item d-flex" + (this.props.boardSelected.id === board.id ? ' selected-board': '')}>
+                    <span style={{'background':board.prefs.background}} className="square"/>
+                    <span onClick={()=>{this.handleChangeBoard(board)}}>{board.name}</span>
+                </li>
         })
         return ( 
-        <div> 
-            <h5>Boards</h5>
-            <ul className="nav flex-column">
+        <div className="left-hand-component col-sm d-flex flex-column border bg-light"> 
+            <h5>Boards</h5>            
+            <ul className="nav flex-column board-items">
                 {boards}    
-            </ul>
+            </ul>                        
         </div>
         )
+    }
+
+    handleChangeBoard(board) {
+        this.props.handleChangeBoard(board);
     }
 }
 

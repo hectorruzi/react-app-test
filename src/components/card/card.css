@@ -1,0 +1,9 @@
+.card-component {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: -ms-grab;
+  cursor: grab;
+  font-weight: bold;
+  margin-bottom: 5px;
+  background: #eceaea; }

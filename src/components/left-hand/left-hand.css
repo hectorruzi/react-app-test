@@ -1,0 +1,14 @@
+.left-hand-component .board-items {
+  margin-top: 50px; }
+
+.left-hand-component .nav-item {
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid transparent; }
+  .left-hand-component .nav-item.selected-board {
+    font-weight: bold;
+    border: 1px solid gray; }
+  .left-hand-component .nav-item .square {
+    height: 25px;
+    width: 25px;
+    margin-right: 10px; }

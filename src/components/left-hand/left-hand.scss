@@ -1,0 +1,19 @@
+.left-hand-component {
+    .board-items {
+        margin-top: 50px;
+    }
+    .nav-item {
+        padding: 10px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        &.selected-board {
+            font-weight: bold;
+            border: 1px solid gray;
+        }
+        .square {
+            height: 25px;
+            width: 25px;
+            margin-right: 10px;
+        }
+    }
+}
